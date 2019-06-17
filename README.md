@@ -3,7 +3,4 @@
 I made this to get more familiar with how neural networks work.  
 What the program does is randomly pick a color and, based on its training, decides whether white or black text looks better over that color. 
 It uses a back propagation algorithm with 3 input nodes ~~and (at the moment) 1 output node.~~, one hidden layer with 2 nodes and one output node. I wrote it based on what *I think* it should work. Still now working, but I guess it's a slow progress.  
-We'll see 
-
-P.S.  
-BWonRGB was the original name, which was dumb, but I doubt I'm gonna change it. The repo being named text-color-predictor is good enough I guess.
+We'll see.
