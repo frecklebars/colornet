@@ -4,16 +4,16 @@ log = open("log.txt", "w")
 
 #getting RGB values of the background
 def getColor():
-    colR = np.random.randint(0, 255)
-    colG = np.random.randint(0, 255)
-    colB = np.random.randint(0, 255)
+    colR = np.random.randint(0, 255) / 255
+    colG = np.random.randint(0, 255) / 255
+    colB = np.random.randint(0, 255) / 255
     color = [colR, colG, colB]
     return(color)
 
 #finding if text should be black (0) or white (1)
 #threshold of 186 is based on theory but can be adjusted to taste
 def findTextCol(color):
-    threshold = 150
+    threshold = 150 / 255
     target = color[0] * 0.299 + color[1] * 0.587 + color[2] * 0.114
     if target > threshold:
         target = 0
