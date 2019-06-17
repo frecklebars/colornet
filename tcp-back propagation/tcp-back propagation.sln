@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.421
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "BWonRGB", "BWonRGB\BWonRGB.pyproj", "{1D1E38F0-6F4E-449B-9190-738FF4933A60}"
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "tcp-back propagation", "tcp-back propagation\tcp-back propagation.pyproj", "{08E8058D-B50D-4BC1-A78B-5E20B2627565}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,13 +11,13 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{1D1E38F0-6F4E-449B-9190-738FF4933A60}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1D1E38F0-6F4E-449B-9190-738FF4933A60}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{08E8058D-B50D-4BC1-A78B-5E20B2627565}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{08E8058D-B50D-4BC1-A78B-5E20B2627565}.Release|Any CPU.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {569E6C4A-5DCF-4187-AB89-1F5E4085442A}
+		SolutionGuid = {32D73D7E-91AF-401D-A0BC-2BDFE5AFB891}
 	EndGlobalSection
 EndGlobal
