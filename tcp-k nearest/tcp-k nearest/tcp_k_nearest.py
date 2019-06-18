@@ -28,9 +28,40 @@ print("reading data...")
 for R in range(256):
     for G in range(256):
         for B in range(256):
-            data[R][G][B] = log.readline()
+            if np.random.randint(1,100) > 95:
+                data[R][G][B] = log.readline()
+            else:
+                data[R][G][B] = 2
+                log.readline()
 print("done!")
 
 #get color
 color = getColor()
 
+#deciding the numbers of neighbors
+k = 13
+neighbors = [-1 for i in range(k)]
+
+def calcDistance(coords1, coords2):
+    sum = 0
+    for i in range(len(coords1)):
+        sum = sum + (coords1[i] - coords2[i]) ** 2
+    return np.sqrt(sum)
+
+#calc distance for every point
+for R in range(len(data)):
+    for G in range(len(data[R])):
+        for B in range(len(data[R][G])):
+            print("checking R="+str(R)+", G="+str(G)+", B="+str(B)+"\r")
+            if data[R][G][B] == 2:
+                continue
+            distance = calcDistance(color, [R, G, B])
+            for i in range(len(neighbors)):
+                if neighbors[i] == -1:
+                    neighbors[i] = [distance, data[R][G][B]]
+                    break
+                elif neighbors[i][0] > distance:
+                    neighbors[i] = [distance, data[R][G][B]]
+                    break
+
+print(neighbors)
