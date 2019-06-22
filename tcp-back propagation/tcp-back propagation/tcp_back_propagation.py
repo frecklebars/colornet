@@ -33,8 +33,14 @@ w22 = np.random.randn()
 w23 = np.random.randn()
 b2 = np.random.randn()
 
+w31 = np.random.randn()
+w32 = np.random.randn()
+w33 = np.random.randn()
+b3 = np.random.randn()
+
 w1 = np.random.randn()
 w2 = np.random.randn()
+w3 = np.random.randn()
 b = np.random.randn()
 rate = 0.2
 
@@ -47,7 +53,7 @@ def sigmoid_p(x):
     return x
 
 #TRAIN LOOP
-train_count = 50000
+train_count = 100
 for i in range(train_count):
     #get dataset
     data = getColor()
@@ -56,10 +62,12 @@ for i in range(train_count):
     #FEED FORWARD
     z1 = w11 * data[0] + w12 * data[1] + w13 * data[2] + b1
     z2 = w21 * data[0] + w22 * data[1] + w23 * data[2] + b2
+    z3 = w31 * data[0] + w32 * data[1] + w33 * data[2] + b3
     pred1 = sigmoid(z1)
     pred2 = sigmoid(z2)
+    pred3 = sigmoid(z3)
 
-    z = pred1 * w1 + pred2 * w2 + b
+    z = pred1 * w1 + pred2 * w2 + pred3 * w3 + b
     pred = sigmoid(z)
 
     #BACK PROPAGATION
@@ -71,18 +79,22 @@ for i in range(train_count):
 
     dz_w1 = pred1
     dz_w2 = pred2
+    dz_w3 = pred3
     dz_b = 1
 
     dcost_w1 = dcost_pred * dpred_z * dz_w1
     dcost_w2 = dcost_pred * dpred_z * dz_w2
+    dcost_w3 = dcost_pred * dpred_z * dz_w3
     dcost_b = dcost_pred * dpred_z * dz_b
 
     #update weights and bias for hidden layer
     w1 = w1 - rate * dcost_w1
     w2 = w2 - rate * dcost_w2
+    w3 = w3 - rate * dcost_w3
     b = b - rate * dcost_b
 
     #calculating derivatives for input layer
+    #node 1
     dcost1_pred1 = 2 * (pred1 - target)
     dpred1_z1 = sigmoid_p(z1)
 
@@ -96,6 +108,7 @@ for i in range(train_count):
     dcost1_w13 = dcost1_pred1 * dpred1_z1 * dz1_w13
     dcost1_b1 = dcost1_pred1 * dpred1_z1 * dz1_b1
 
+    #node 2
     dcost2_pred2 = 2 * (pred2 - target)
     dpred2_z2 = sigmoid_p(z2)
 
@@ -109,6 +122,20 @@ for i in range(train_count):
     dcost2_w23 = dcost2_pred2 * dpred2_z2 * dz2_w23
     dcost2_b2 = dcost2_pred2 * dpred2_z2 * dz2_b2
 
+    #node 3
+    dcost3_pred3 = 2 * (pred3 - target)
+    dpred3_z3 = sigmoid_p(z3)
+
+    dz3_w31 = data[0]
+    dz3_w32 = data[1]
+    dz3_w33 = data[2]
+    dz3_b3 = 1
+
+    dcost3_w31 = dcost3_pred3 * dpred3_z3 * dz3_w31
+    dcost3_w32 = dcost3_pred3 * dpred3_z3 * dz3_w32
+    dcost3_w33 = dcost3_pred3 * dpred3_z3 * dz3_w33
+    dcost3_b3 = dcost3_pred3 * dpred3_z3 * dz3_b3
+
     #update weights and bias for hidden layer
     w11 = w11 - rate * dcost1_w11
     w12 = w12 - rate * dcost1_w12
@@ -119,6 +146,11 @@ for i in range(train_count):
     w22 = w22 - rate * dcost2_w22
     w23 = w23 - rate * dcost2_w23
     b2 = b2 - rate * dcost2_b2
+
+    w31 = w31 - rate * dcost3_w31
+    w32 = w32 - rate * dcost3_w32
+    w33 = w33 - rate * dcost3_w33
+    b3 = b3 - rate * dcost3_b3
 
 
 #TEST
@@ -140,10 +172,13 @@ for i in range(100):
     #predict output
     z1 = w11 * data[0] + w12 * data[1] + w13 * data[2] + b1
     z2 = w21 * data[0] + w22 * data[1] + w23 * data[2] + b2
+    z3 = w31 * data[0] + w32 * data[1] + w33 * data[2] + b3
+
     pred1 = sigmoid(z1)
     pred2 = sigmoid(z2)
+    pred3 = sigmoid(z3)
 
-    z = pred1 * w1 + pred2 * w2 + b
+    z = pred1 * w1 + pred2 * w2 + pred3 * w3 + b
     pred = sigmoid(z)
 
     #set text color based on prediction
