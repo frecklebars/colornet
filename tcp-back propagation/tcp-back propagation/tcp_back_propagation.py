@@ -25,8 +25,9 @@ nodes_out = 1
 
 #initialising weights and biases
 wH = np.array([[np.random.randn() for x in range(nodes_in)] for x in range(nodes_h)])
-wOut = np.array([[np.random.randn() for x in range(nodes_h)] for x in range(nodes_out)])
 bH = np.array([[np.random.randn()] for x in range(nodes_h)])
+
+wOut = np.array([[np.random.randn() for x in range(nodes_h)] for x in range(nodes_out)])
 bOut = np.array([[np.random.randn()] for x in range(nodes_out)])
 
 #activation functions
@@ -65,4 +66,12 @@ for i in range(1):
     wOut =  wOut - rate * dcost_wOut
     bOut =  bOut - rate * dcost_bOut
 
+'''
+    TO DO
 
+>   look into updating hidden layer weights and biases
+>   i have a suspicion about what was wrong in the first version, which might be
+    related to the way i calculated the original weight updates
+>   keep learning
+
+'''
