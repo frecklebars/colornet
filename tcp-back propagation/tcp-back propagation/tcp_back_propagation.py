@@ -126,4 +126,5 @@ print("done", tests, "tests\n")
 print("black count: ", t_black, "\npredicted black: ", pred_black)
 print("\nwhite count: ", t_white, "\npredicted white: ", pred_white)
 
+#cant spell success without succ ;^)
 print("\nsuccess rate: %.2f" % succ, "%")
