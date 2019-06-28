@@ -18,9 +18,12 @@ def findTextCol(color):
         target = 1
     return target
 
+
+
+
 #declaring how many nodes(neurons) per layer there will be
 nodes_in = 3 #for R G and B
-nodes_h = 4
+nodes_h = int(input("amount of neurons in hidden layer? : "))
 nodes_out = 1
 
 #initialising weights and biases
@@ -40,10 +43,14 @@ def sigmoid_p(x):
 rate = 0.2
 
 #NN
-train_loops = 50000
+train_loops = int(input("train loops? : "))
+print("\nnetwork is running...")
 for i in range(train_loops):
     color = np.array(getColor())
     target = findTextCol(color)
+    progress = int((i/train_loops)*30)
+    prog_percentage = float((i/train_loops)*100)
+    print("[", "#"*progress, "-"*(30-progress), "] %.2f" %prog_percentage, "%", end="\r" )
 
     #feed forward
     zH = np.dot(color, wH) + bH
@@ -83,8 +90,11 @@ for i in range(train_loops):
     wH = wH - rate * dcost_wH
     bH = bH - rate * dcost_bH
 
+print("[", "#"*30, "] 100 %", end="\r" )
+print("\ndone!")
+
 #TEST
-tests = 100000
+tests = int(input("\nrun how many tests? : "))
 pred_black = 0
 pred_white = 0
 t_black = 0
@@ -121,6 +131,7 @@ for i in range(tests):
         wrong += 1
 
 succ = ((tests-wrong)/tests)*100
+print("\n")
 print(train_loops, "training loops and", nodes_h, "neurons in the hidden layer")
 print("done", tests, "tests\n")
 print("black count: ", t_black, "\npredicted black: ", pred_black)
