@@ -90,7 +90,7 @@ for i in range(train_loops):
     wH = wH - rate * dcost_wH
     bH = bH - rate * dcost_bH
 
-print("[", "#"*30, "] 100 %", end="\r" )
+print("[", "#"*30, "] 100.00 %", end="\r" )
 print("\ndone!")
 
 #TEST

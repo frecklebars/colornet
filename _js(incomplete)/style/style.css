@@ -1,0 +1,26 @@
+@font-face{
+	font-family: "montserrat";
+	src: url("montserrat/Montserrat-Regular.ttf");
+}
+
+body{
+	font-family: "montserrat";
+}
+
+.title{
+	text-align: center;
+	margin-top: 50px;
+}
+
+#color{
+	width: 450px;
+	height: 250px;
+	margin: 0 auto;
+}
+
+#ctext{
+	font-weight: bold;
+	font-size: 40px;
+	text-align: center;
+	line-height: 250px;
+}
