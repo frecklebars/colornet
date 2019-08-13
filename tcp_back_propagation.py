@@ -1,6 +1,6 @@
 import numpy as np
 
-#getting RGB values of the background
+#getting a rand color
 def getColor():
     colR = np.random.randint(0, 255) / 255
     colG = np.random.randint(0, 255) / 255
