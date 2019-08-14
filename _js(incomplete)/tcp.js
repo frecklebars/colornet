@@ -133,7 +133,7 @@ var bOut = newRandArr(nodes_out);
 
 var loops = 0;
 
-function train(){
+function shit(){
 	var trn = setInterval(ffbp, 0.5);
 	var check = setInterval(checktr, 0.5);
 	document.getElementById("ctext").innerHTML = "training...";
@@ -149,54 +149,59 @@ function train(){
 	}
 }
 
-function ffbp(){
-	loops++;
-	let color = getColor();
-	let target = findTextCol(color);
+function train(){
+	var zH, predH, zOut, pred, cost;
+	var dcost_pred, dpred_zOut, dzOut_wOUt, dzOut_bOut, dcost_wOut, dcost_bOut;
+	var dcost_zOut, dzOut_predH, dpredH_zH, dzH_wH, dzH_bH, dcost_predH, dcost_zH, dcost_wH, dcost_bH;
+	for(let i = 0; i<50000; i++){
+		var color = getColor();
+		var target = findTextCol(color);
 
-	// FEED FORWARD
-	let zH = math.multiply(color, wH);
+		// FEED FORWARD
+		zH = math.multiply(color, wH);
 		zH = math.add(zH, bH);
-	let predH = funcOnArr(sigmoid, zH);
+		predH = funcOnArr(sigmoid, zH);
 
-	let zOut = math.multiply(predH, wOut);
+		zOut = math.multiply(predH, wOut);
 		zOut = math.add(zOut, bOut);
-	let pred = funcOnArr(sigmoid, zOut);
+		pred = funcOnArr(sigmoid, zOut);
 
-	// BACK PROPAGATION
-	// out layer to hidden layer
-	let cost = (pred - target) ** 2;
+		// BACK PROPAGATION
+		// out layer to hidden layer
+		cost = (pred - target) ** 2;
 
-	let dcost_pred = 2 * (pred - target);
-	let dpred_zOut = sigmoid_p(zOut);
-	let dzOut_wOut = predH;
-	let dzOut_bOut = 1;
+		dcost_pred = 2 * (pred - target);
+		dpred_zOut = sigmoid_p(zOut);
+		dzOut_wOut = predH;
+		dzOut_bOut = 1;
 
-	let dcost_wOut = dcost_pred * dpred_zOut;
+		dcost_wOut = dcost_pred * dpred_zOut;
 		dcost_wOut = math.multiply(math.transpose(dzOut_wOut), dcost_wOut);
 		dcost_wOut = math.transpose([dcost_wOut]);
-	let dcost_bOut = dcost_pred * dpred_zOut * dzOut_bOut;
+		dcost_bOut = dcost_pred * dpred_zOut * dzOut_bOut;
 
-	// hidden layer to input layer
-	let dcost_zOut = dcost_pred * dpred_zOut;
+		// hidden layer to input layer
+		dcost_zOut = dcost_pred * dpred_zOut;
 
-	let dzOut_predH = wOut;
-	let dpredH_zH = funcOnArr(sigmoid_p, zH);
-	let dzH_wH = color;
-	let dzH_bH = 1;
+		dzOut_predH = wOut;
+		dpredH_zH = funcOnArr(sigmoid_p, zH);
+		dzH_wH = color;
+		dzH_bH = 1;
 
-	let dcost_predH = math.multiply(dcost_zOut, math.transpose(dzOut_predH));
-	let dcost_zH = lineMultiply(dcost_predH[0], dpredH_zH);
+		dcost_predH = math.multiply(dcost_zOut, math.transpose(dzOut_predH));
+		dcost_zH = lineMultiply(dcost_predH[0], dpredH_zH);
 
-	let dcost_wH = math.multiply(math.transpose([dzH_wH]), [dcost_zH]);
-	let dcost_bH = math.multiply(dcost_zH, dzH_bH);
+		dcost_wH = math.multiply(math.transpose([dzH_wH]), [dcost_zH]);
+		dcost_bH = math.multiply(dcost_zH, dzH_bH);
 
-	// UPDATE WEIGHTS AND BIAS
-	wOut = updateW(wOut, dcost_wOut);
-	wH = updateW(wH, dcost_wH);
+		// UPDATE WEIGHTS AND BIAS
+		wOut = updateW(wOut, dcost_wOut);
+		wH = updateW(wH, dcost_wH);
 
-	bOut = updateB(bOut, dcost_bOut);
-	bH = updateB(bH, dcost_bH);
+		bOut = updateB(bOut, dcost_bOut);
+		bH = updateB(bH, dcost_bH);
+	}
+	
 
 }
 
