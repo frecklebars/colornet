@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<link rel="stylesheet" type="text/css" href="style/style.css">
+<script type="text/javascript" src="libs/math.js"></script>
+<script type="text/javascript" src="tcp.js"></script>
+<html>
+<head>
+	<title>Text Color Predictor</title>
+</head>
+<body onload="init()">
+	<h1 class="title">Text Color Predictor</h1>
+	<br>
+	<div id="color">
+		<div id="ctext">dummy text</div>
+	</div>
+	<br>
+	<p id="instruction">click on train to start the network</p>
+	<div class="menu">
+		<button id="trainb" onclick="train()">TRAIN</button>
+		<button id="testb" onclick="test()">TEST</button>
+		<br>
+		<button onclick="showHelp()">ABOUT</button>
+	</div>
+	
+	<br><br>
+	<div id="about">
+		<p>This is a powered by a neural network. It takes the 3 random RGB values of a color and feeds it into the net. It has 3 neurons in the input layer that go into 5 neurons in a hidden layer and finally they all lead to a single neuron in the output layer. That decides whether black text or white text is visible better on the given color.<br>
+		So it looks somewhat like this:</p>
+		<img src="net.png"><br>
+		<p>More or less.<br>The net is trained using back propagation. The data it trains on is calculated on the spot for every loop. Takes a random color and uses the following snippet to determine the intensity of the color and what text color to use.</p>
+		<pre>
+function findTextCol(color){
+	var threshold = 128 / 256; //threshold should in theory be 186
+	 			   //but I settled on that couse it feels better
+
+	var target = color[0] * 0.299 + color[1] * 0.587 + color[2] * 0.114;
+
+	if(target > threshold){
+		return 0; //text color should be BLACK
+	}else{
+		return 1; //text color should be WHITE
+	}
+}
+		</pre>
+	</div>
+	<br>
+	<p style="text-align: center">made with love, by <a href="http://mvrf.cf/homepage">Alex
+</body>
+</html>

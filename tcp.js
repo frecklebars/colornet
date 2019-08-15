@@ -24,7 +24,6 @@ function updateCol(color = false){
 }
 
 function updateText(res){
-	console.log(res)
 	if(res > 0.5){
 		document.getElementById("ctext").style.color = "#ffffff";
 	}
@@ -67,7 +66,7 @@ function funcOnArr(func, arr){
 
 // activation functions
 function sigmoid(x){
-	return 1 / (1 + Math.exp(x));
+	return 1 / (1 + Math.exp(-x));
 }
 // derivative of sigmoid
 function sigmoid_p(x){
@@ -131,28 +130,20 @@ var bH = newRandArr(nodes_hidden);
 var wOut = newRandMatrix(nodes_hidden, nodes_out);
 var bOut = newRandArr(nodes_out);
 
-var loops = 0;
-
-function shit(){
-	var trn = setInterval(ffbp, 0.5);
-	var check = setInterval(checktr, 0.5);
-	document.getElementById("ctext").innerHTML = "training...";
-
-	function checktr(){
-		document.getElementById("ctext").innerHTML = bOut;
-		if(loops > 10000){
-			clearInterval(trn);
-			document.getElementById("ctext").innerHTML = "done!";
-			loops = 0;
-			clearInterval(checktr);
-		}
-	}
+function train(){
+	document.getElementById("instruction").innerHTML = "training... please give it some time";
+	document.getElementById("trainb").onclick = null;
+	document.getElementById("testb").onclick = null;
+	setTimeout(net, 2);
 }
 
-function train(){
+
+function net(){
+	
 	var zH, predH, zOut, pred, cost;
 	var dcost_pred, dpred_zOut, dzOut_wOUt, dzOut_bOut, dcost_wOut, dcost_bOut;
 	var dcost_zOut, dzOut_predH, dpredH_zH, dzH_wH, dzH_bH, dcost_predH, dcost_zH, dcost_wH, dcost_bH;
+	
 	for(let i = 0; i<50000; i++){
 		var color = getColor();
 		var target = findTextCol(color);
@@ -195,14 +186,33 @@ function train(){
 		dcost_bH = math.multiply(dcost_zH, dzH_bH);
 
 		// UPDATE WEIGHTS AND BIAS
-		wOut = updateW(wOut, dcost_wOut);
-		wH = updateW(wH, dcost_wH);
+		wOut = math.subtract(wOut, math.multiply(dcost_wOut, learn_rate))
+		wH = math.subtract(wH, math.multiply(dcost_wH, learn_rate))
 
-		bOut = updateB(bOut, dcost_bOut);
-		bH = updateB(bH, dcost_bH);
+		bOut = math.subtract(bOut, math.multiply(dcost_bOut, learn_rate))
+		bH = math.subtract(bH, math.multiply(dcost_bH, learn_rate))
 	}
-	
+	done();
+}
 
+function train2(){
+	document.getElementById("instruction").innerHTML = "no reason to train more :)"
+}
+
+function done(){
+	document.getElementById("instruction").innerHTML = "done! click on test to try a random color";
+	document.getElementById("trainb").onclick = train2;
+	document.getElementById("testb").onclick = test;
+}
+
+function showHelp(){
+	let hlp = document.getElementById("about");
+	if(window.getComputedStyle(hlp).getPropertyValue("display") == "none"){
+		hlp.style.display = "block";
+	}
+	else{
+		hlp.style.display = "none";
+	}
 }
 
 function test(){
@@ -220,6 +230,9 @@ function test(){
 
 	updateCol(color);
 	updateText(pred);
+	var msg = "predicted value was " + parseFloat(pred).toFixed(9);
+	msg = msg + "; target value was " + target;
+	document.getElementById("instruction").innerHTML = msg;
 
 }
 
