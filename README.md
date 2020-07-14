@@ -1,6 +1,3 @@
-### 14th july 2020 update
-why did i do it in js too wtf
-
 # text-color-predictor  
 I made this to get more familiar with how neural networks work.  
 What the program does is randomly pick a color and, based on its training, decides whether white or black text looks better over that color. 
